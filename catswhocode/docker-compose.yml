@@ -37,7 +37,6 @@ services:
     build:
       dockerfile: docker/app/Dockerfile
       context: ./
-    command: './manage.py runserver 0.0.0.0:8000'
     image: catswhocode-app:latest
     container_name: catswhocode_app
     volumes:
@@ -96,7 +95,6 @@ services:
     container_name: catswhocode_portainer
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./docker/portainer:/data
     ports:
       - '9000:9000'
     restart: on-failure

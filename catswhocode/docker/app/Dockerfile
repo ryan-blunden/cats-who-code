@@ -62,3 +62,6 @@ RUN pipenv install --deploy --system
 RUN apt-get remove libmysqlclient-dev gcc -y
 
 EXPOSE 8000
+
+CMD ["uwsgi", "--http-auto-chunked", "--http-keepalive"]
+ENTRYPOINT ["./bin/entrypoint.sh"]
