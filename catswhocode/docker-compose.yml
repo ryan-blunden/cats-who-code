@@ -1,0 +1,106 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: catswhocode_db
+    ports:
+      - '3306:3306'
+    networks:
+      - backend
+    restart: on-failure
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=True
+
+  cache:
+    image: redis:4-alpine
+    container_name: catswhocode_cache
+    ports:
+      - '6379'
+    networks:
+      - backend
+    restart: on-failure
+
+  mail:
+    build:
+      dockerfile: docker/mail-server/Dockerfile
+      context: ./
+    image: catswhocode-mail-server:latest
+    container_name: catrswhocode_mail_server
+    ports:
+    - '1025'
+    networks:
+      - backend
+    restart: on-failure
+
+  app:
+    build:
+      dockerfile: docker/app/Dockerfile
+      context: ./
+    command: './manage.py runserver 0.0.0.0:8000'
+    image: catswhocode-app:latest
+    container_name: catswhocode_app
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - '8000'
+    depends_on:
+      - db
+      - cache
+      - mail
+    networks:
+      - frontend
+      - backend
+    restart: on-failure
+    environment:
+      - DJANGO_DEBUG=True
+      - DJANGO_SECRET_KEY='df169339-43cc-4c99-bb12-a765fea6fbb6'
+      - DJANGO_MANAGEPY_MIGRATE=True
+      - DJANGO_MANAGEPY_COLLECTSTATIC=True
+      - DB_NAME=catswhocode
+      - DB_USER=root
+      - DB_PASSWORD=
+      - DB_HOST=db
+      - DB_PORT=3306
+      - CACHE_HOST=cache
+      - CACHE_PORT=6379
+
+  frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./docker/frontend
+    image: catswhocode-frontend:latest
+    container_name: catswhocode_frontend
+    ports:
+      - '8080:8080'
+    depends_on:
+      - app
+    networks:
+      - frontend
+    restart: on-failure
+
+  docs:
+    build:
+      dockerfile: Dockerfile
+      context: docker/docs/
+    image: catswhocode-docs:latest
+    container_name: catswhocode_docs
+    volumes:
+      - ./docs:/usr/src/app
+    ports:
+      - '8000:8000'
+    restart: on-failure
+
+  portainer:
+    image: portainer/portainer:latest
+    container_name: catswhocode_portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./docker/portainer:/data
+    ports:
+      - '9000:9000'
+    restart: on-failure
+
+networks:
+  frontend:
+  backend:

@@ -1,0 +1,31 @@
+[[source]]
+url = 'https://pypi.python.org/simple'
+verify_ssl = true
+
+[requires]
+
+python_version = '3.6'
+
+[packages]
+
+'django' = '*'
+'django-extensions' = '*'
+'djangorestframework' = '*'
+'django-filter' = '*'
+'djangorestframework-camel-case' = '*'
+'python-dateutil' = '*'
+'pytz' = '*'
+'requests' = '*'
+'whitenoise' = '*'
+'mysqlclient' = '*'
+'django-storages' = '*'
+'boto3' = '*'
+'django-redis-cache' = '*'
+
+['dev-packages']
+
+'ipython' = '*'
+'werkzeug' = '*'
+'pylint' = '*'
+'flake8' = '*'
+'autopep8' ='*'

@@ -1,0 +1,12 @@
+site_name: Cats Who Code Docs
+
+theme: readthedocs
+
+markdown_extensions:
+    - toc:
+        permalink: []
+    - admonition:
+    - markdown_newtab: 
+
+pages:
+- Home: 'index.md'
