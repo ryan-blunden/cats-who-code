@@ -25,6 +25,7 @@ django-storages = "*"
 "boto3" = "*"
 django-redis-cache = "*"
 uwsgi = "*"
+awscli = "*"
 
 
 ['dev-packages']

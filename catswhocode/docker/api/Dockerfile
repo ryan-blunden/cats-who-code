@@ -33,20 +33,8 @@ HEALTHCHECK CMD curl --fail http://localhost${UWSGI_HTTP}/health-check/ || exit 
 
 RUN apt-get update && \
     apt-get upgrade -y  && \
-    apt-get install -y --no-install-recommends curl make nano libmysqlclient-dev gcc && \
-    \
-    apt-get clean -y && \
-    apt-get purge -y && \
-    apt-get autoclean -y && \
-    apt-get autoremove -y && \
-    \
-    rm -rf /usr/share/locale/* && \
-    rm -rf /var/cache/debconf/*-old && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /usr/share/doc/* && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /tmp/* && \
-    rm -rf /var/tmp/*
+    apt-get install -y --no-install-recommends curl libmysqlclient-dev gcc && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
 
@@ -57,7 +45,7 @@ RUN pip install pip setuptools --upgrade
 RUN pip install pipenv
 RUN ln -s /usr/local/bin/python /bin/python
 
-COPY cats catswhocode manage.py Pipfile ./
+COPY catswhocode .
 RUN pipenv install --deploy --system
 RUN apt-get remove libmysqlclient-dev gcc -y
 

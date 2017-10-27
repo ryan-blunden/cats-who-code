@@ -21,26 +21,37 @@ services:
       - backend
     restart: on-failure
 
-  mail:
+  dynamo:
     build:
-      dockerfile: docker/mail-server/Dockerfile
-      context: ./
-    image: catswhocode-mail-server:latest
-    container_name: catrswhocode_mail_server
+      context: docker/dynamo
+    image: catswhocode-dynamo:latest
+    container_name: catswhocode_dynamo
     ports:
-    - '1025'
+      - '8000:8000'
     networks:
       - backend
     restart: on-failure
 
-  app:
+  mail:
     build:
-      dockerfile: docker/app/Dockerfile
+      context: docker/mail-server
+    image: catswhocode-mail-server:latest
+    container_name: catrswhocode_mail_server
+    ports:
+      - '1025'
+    networks:
+      - backend
+    restart: on-failure
+
+  api:
+    build:
+      dockerfile: docker/api/Dockerfile
       context: ./
-    image: catswhocode-app:latest
-    container_name: catswhocode_app
-    volumes:
-      - .:/usr/src/app
+    image: catswhocode-api:latest
+    container_name: catswhocode_api
+    command: './manage.py runserver 0.0.0.0:8000'
+#    volumes:
+#      - ./catswhocode:/usr/src/app
     ports:
       - '8000'
     depends_on:
@@ -73,21 +84,35 @@ services:
     ports:
       - '8080:8080'
     depends_on:
-      - app
+      - api
     networks:
       - frontend
     restart: on-failure
 
   docs:
     build:
-      dockerfile: Dockerfile
-      context: docker/docs/
+      dockerfile: docker/docs/Dockerfile
+      context: ./
     image: catswhocode-docs:latest
     container_name: catswhocode_docs
-    volumes:
-      - ./docs:/usr/src/app
+#    volumes:
+#      - ./docs:/usr/src/app
     ports:
-      - '8000:8000'
+      - '3000:8000'
+    restart: on-failure
+
+  awslinux:
+    build:
+      context: docker/awslinux
+    image: catswhocode-awsliunux:latest
+    container_name: catswhocode_awsliunux
+    stdin_open: true
+    tty: true
+#    volumes:
+#      - .:/usr/src/app
+    networks:
+      - frontend
+      - backend
     restart: on-failure
 
   portainer:
