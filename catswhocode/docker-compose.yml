@@ -104,7 +104,7 @@ services:
   awslinux:
     build:
       context: docker/awslinux
-    image: catswhocode-awsliunux:latest
+    image: catswhocode-awslinux:latest
     container_name: catswhocode_awsliunux
     stdin_open: true
     tty: true

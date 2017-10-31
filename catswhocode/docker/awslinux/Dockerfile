@@ -8,7 +8,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /usr/src/app
 
 RUN yum -y update && \
-    yum -y install python36 ncomplete which -y && \
+    yum -y install python36 ncomplete jq less which -y && \
     yum clean all
 
 RUN ln -s /usr/bin/python3 /bin/python && \
