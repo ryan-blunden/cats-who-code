@@ -1,6 +1,7 @@
 .idea
 .DS_Store
 Pipfile.lock
+.vscode
 .git
 .gitignore
 .env
