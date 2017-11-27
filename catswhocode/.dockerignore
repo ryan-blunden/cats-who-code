@@ -8,3 +8,4 @@ Pipfile.lock
 LICENSE
 docker
 docker-compose.yml
+docker-compose-dev.yml

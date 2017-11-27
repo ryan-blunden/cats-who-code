@@ -50,8 +50,6 @@ services:
     image: catswhocode-api:latest
     container_name: catswhocode_api
     command: './manage.py runserver 0.0.0.0:8000'
-#    volumes:
-#      - ./catswhocode:/usr/src/app
     ports:
       - '8000'
     depends_on:
@@ -95,8 +93,6 @@ services:
       context: ./
     image: catswhocode-docs:latest
     container_name: catswhocode_docs
-#    volumes:
-#      - ./docs:/usr/src/app
     ports:
       - '3000:8000'
     restart: on-failure
@@ -108,8 +104,6 @@ services:
     container_name: catswhocode_awsliunux
     stdin_open: true
     tty: true
-#    volumes:
-#      - .:/usr/src/app
     networks:
       - frontend
       - backend

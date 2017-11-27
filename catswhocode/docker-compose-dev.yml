@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  api:
+    command: './manage.py runserver 0.0.0.0:8000'
+    volumes:
+      - ./catswhocode:/usr/src/app
+    environment:
+      - DJANGO_DEBUG=True
+  docs:
+    volumes:
+      - ./docs:/usr/src/app
+  awslinux:
+    volumes:
+      - .:/usr/src/app
