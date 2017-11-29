@@ -25,13 +25,19 @@ Then setup the MySQL database that Django uses by running the following commands
 
 The health check should return all systems normal. [http://localhost:8080/health-check/](http://localhost:8080/health-check/).
 
-# The final test - Login to the admin
+## The final test - Login to the admin
 
 First, create a `superuser` account by running the following command:
 
     make superuser
 
-Visit [http://localhost:8080/manage/](http://localhost:8080/manage/) using the details you entered. 
+Visit [http://localhost:8080/manage/](http://localhost:8080/manage/) using the details you entered.
+
+## Creating your first Cat upload
+
+Head to [http://localhost:8080/manage/cats/cat/](http://localhost:8080/manage/cats/cat/) and upload a Cat coding photo.
+
+You can (presuming you set the photo to approved) see the photo in the cats feed at [http://localhost:8080/api/v1/cats/](http://localhost:8080/api/v1/cats/).
 
 ## Index of Services 
 
