@@ -1,10 +1,8 @@
 import uuid
 
+from catswhocode.managers import EnabledManager
 from django.db import models
 from django.utils.timesince import timesince
-
-
-from catswhocode.managers import EnabledManager
 
 
 class BaseModel(models.Model):

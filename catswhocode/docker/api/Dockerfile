@@ -38,16 +38,12 @@ RUN apt-get update && \
 
 WORKDIR /usr/src/app
 
-#
-## PYTHON DEPENDENCIES
-#
 RUN pip install pip setuptools --upgrade
 RUN pip install pipenv
 RUN ln -s /usr/local/bin/python /bin/python
 
 COPY catswhocode .
 RUN pipenv install --deploy --system
-RUN apt-get remove libmysqlclient-dev gcc -y
 
 EXPOSE 8000
 

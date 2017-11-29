@@ -16,6 +16,8 @@ soft_undelete.short_description = 'Mark selected records as un-deleted'
 
 
 class EnabledModelAdmin(admin.ModelAdmin):
+    list_filter = ('deleted',)
+
     def get_queryset(self, request):
         qs = self.model._default_manager.all_and_deleted()
         ordering = self.get_ordering(request)

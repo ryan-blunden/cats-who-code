@@ -22,10 +22,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'django_filters',
     'rest_framework.authtoken',
+    'django_filters',
 
-    # 'cats',
+    'health_check',
+    'health_check.db',
+    'health_check.cache',
+    'health_check.storage',
+
+    'members',
+    'cats',
+
 ]
 
 MIDDLEWARE = [
@@ -111,6 +118,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
@@ -119,7 +129,5 @@ REST_FRAMEWORK = {
 
 if DEBUG:
     ALLOWED_HOSTS = ['0.0.0.0', 'localhost']
-
     INTERNAL_IPS = ('127.0.0.1',)
-
     INSTALLED_APPS += ['django_extensions', ]
