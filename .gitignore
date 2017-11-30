@@ -103,8 +103,10 @@ ENV/
 # Django
 db.sqlite3
 
-# IDE
-.idea
-
 # Other
+.idea
 Pipfile.lock # Ignored because this will only be created for local deelopment with IDE purposes.
+docs/site
+static
+media
+.vscode
