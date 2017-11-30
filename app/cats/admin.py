@@ -6,5 +6,7 @@ from cats import models
 
 @admin.register(models.Cat)
 class CatAdmin(EnabledModelAdmin):
-    pass
-    # list_display = ('user', 'photo', 'caption', 'likes', 'attribution', 'approved', 'deleted')
+    date_hierarchy = 'date_created'
+    list_display = ('member', 'photo', 'caption', 'likes', 'approved', 'deleted')
+    list_filter = ('approved', 'deleted')
+    search_fields = ('caption', 'attribution')

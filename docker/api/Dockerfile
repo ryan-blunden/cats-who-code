@@ -38,11 +38,11 @@ RUN apt-get update && \
 
 WORKDIR /usr/src/app
 
-RUN pip install pip setuptools --upgrade
-RUN pip install pipenv
-RUN ln -s /usr/local/bin/python /bin/python
+RUN pip install pip setuptools --upgrade && \
+    pip install pipenv && \
+    ln -s /usr/local/bin/python /bin/python
 
-COPY catswhocode .
+COPY app .
 RUN pipenv install --deploy --system
 
 EXPOSE 8000

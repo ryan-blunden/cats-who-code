@@ -4,7 +4,7 @@ services:
   api:
     command: './manage.py runserver 0.0.0.0:8000'
     volumes:
-      - ./catswhocode:/usr/src/app
+      - ./app:/usr/src/app
     environment:
       - DJANGO_DEBUG=True
   docs:
