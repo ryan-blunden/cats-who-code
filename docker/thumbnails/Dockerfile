@@ -1,0 +1,1 @@
+FROM catswhocode/awslinux:latest

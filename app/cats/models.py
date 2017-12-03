@@ -5,7 +5,7 @@ from members.models import Member
 
 
 class Cat(BaseModel):
-    member = models.OneToOneField(Member)
+    member = models.OneToOneField(Member, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='photos')
     caption = models.CharField(max_length=255, blank=True)
     likes = models.PositiveSmallIntegerField(default=0)

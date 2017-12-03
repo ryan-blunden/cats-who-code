@@ -19,7 +19,6 @@ djangorestframework-camel-case = "*"
 django-health-check = "*"
 python-dateutil = "*"
 pytz = "*"
-pillow = "*"
 requests = "*"
 whitenoise = "*"
 mysqlclient = "*"
@@ -28,6 +27,7 @@ boto3 = "*"
 django-redis-cache = "*"
 uwsgi = "*"
 awscli = "*"
+pillow = "*"
 
 
 ['dev-packages']

@@ -10,6 +10,11 @@ services:
   docs:
     volumes:
       - ./docs:/usr/src/app
+
   awslinux:
     volumes:
       - .:/usr/src/app
+
+  awscli:
+    volumes:
+      - ./docker/awscli:/usr/src/app
