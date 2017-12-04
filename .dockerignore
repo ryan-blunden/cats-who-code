@@ -8,5 +8,8 @@ Pipfile.lock
 .dockerignore
 LICENSE
 docker
+Makefile
+README.md
+sample-images
 docker-compose.yml
 docker-compose-dev.yml
