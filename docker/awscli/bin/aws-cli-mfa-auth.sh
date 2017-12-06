@@ -7,12 +7,17 @@
 
 VERSION=0.1.0
 UPDATED=2017-11-07
-USAGE="usage: . ./bin/$(basename "$0") -a <account-number> -u <username> -t <mfa-token>"
+USAGE="Usage: . ./bin/$(basename "$0") -a <account-number> -u <username> -t <mfa-token>"
 OPTIND=1
 
-if [ $# == 0 ] ; then
+if [ $# == 0 ]; then
     echo $USAGE
-    return
+
+    if [ $SHLVL == 2 ]; then
+        exit
+    else
+        return
+    fi
 fi
 
 while getopts a:u:t: option

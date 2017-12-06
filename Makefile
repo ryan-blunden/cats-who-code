@@ -14,3 +14,6 @@ stack-dev: stack-clean
 
 stack-stop:
 	docker-compose stop
+
+awscli: stack-build
+	docker run --rm -it catswhocode/awscli
