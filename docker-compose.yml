@@ -38,6 +38,17 @@ services:
       - backend
     restart: on-failure
 
+  mail:
+    build:
+      context: docker/mail-server
+    image: catswhocode/mail-server:latest
+    container_name: catrswhocode_mail_server
+    ports:
+      - '1025'
+    networks:
+      - backend
+    restart: on-failure
+
   api:
     build:
       dockerfile: docker/api/Dockerfile
@@ -49,6 +60,7 @@ services:
     depends_on:
       - db
       - cache
+      - mail
     networks:
       - frontend
       - backend
@@ -111,6 +123,14 @@ services:
     depends_on:
       - awslinux
 
+  portainer:
+    image: portainer/portainer:latest
+    container_name: catswhocode_portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - '9000:9000'
+    restart: on-failure
 
 networks:
   frontend:
