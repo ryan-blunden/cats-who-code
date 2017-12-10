@@ -11,7 +11,8 @@ resource "aws_vpc" "cwc-dev" {
   }
 }
 
-# We don't use the "Main" route table to avoid confusion.
+# We don't use the "Main" route table to avoid confusion with implicitly assigned subnets.
+# Exolicit is better than implicit.
 resource "aws_default_route_table" "r" {
   default_route_table_id = "${aws_vpc.cwc-dev.default_route_table_id}"
 

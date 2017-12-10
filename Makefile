@@ -43,6 +43,7 @@ app-stack:
 		--detach \
 		--env-file app/app.prod.env \
 		--init \
+		--volume $(CURDIR)/app/app.prod.env /usr/src/app/app/app.prod.env \
 		--network catswhocode_frontend \
 		--hostname api \
 		--name catswhocode_api \
