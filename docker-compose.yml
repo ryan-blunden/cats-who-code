@@ -22,7 +22,7 @@ services:
     image: redis:4-alpine
     container_name: catswhocode_cache
     ports:
-      - '6379'
+      - '6379:6379'
     networks:
       - backend
     restart: on-failure
@@ -65,18 +65,8 @@ services:
       - frontend
       - backend
     restart: on-failure
-    environment:
-      - DJANGO_DEBUG=True
-      - DJANGO_SECRET_KEY='df169339-43cc-4c99-bb12-a765fea6fbb6'
-      - DJANGO_MANAGEPY_MIGRATE=True
-      - DJANGO_MANAGEPY_COLLECTSTATIC=True
-      - DB_NAME=catswhocode
-      - DB_USER=root
-      - DB_PASSWORD=
-      - DB_HOST=db
-      - DB_PORT=3306
-      - CACHE_HOST=cache
-      - CACHE_PORT=6379
+    env_file:
+      - app/app.prod.env
 
   frontend:
     build:
@@ -85,7 +75,7 @@ services:
     image: catswhocode/frontend:latest
     container_name: catswhocode_frontend
     ports:
-      - '8080:8080'
+      - '80:8080'
     depends_on:
       - api
     networks:

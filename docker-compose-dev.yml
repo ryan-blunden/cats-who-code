@@ -5,8 +5,13 @@ services:
     command: './manage.py runserver 0.0.0.0:8000'
     volumes:
       - ./app:/usr/src/app
-    environment:
-      - DJANGO_DEBUG=True
+    env_file:
+      - app/app.dev.env
+
+  frontend:
+    ports:
+      - '8080:8080'
+
   docs:
     volumes:
       - ./docs:/usr/src/app

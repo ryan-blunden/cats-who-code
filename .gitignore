@@ -103,6 +103,11 @@ ENV/
 # Django
 db.sqlite3
 
+# App
+app.prod.env
+app.stage.env
+app.test.env
+
 # Terraform
 .terraform
 .terraform.tfstate.lock.info
