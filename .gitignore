@@ -103,6 +103,12 @@ ENV/
 # Django
 db.sqlite3
 
+# Terraform
+.terraform
+.terraform.tfstate.lock.info
+terraform.tfstate
+terraform.tfstate.backup
+
 # Other
 .idea
 Pipfile.lock # Ignored because this will only be created for local deelopment with IDE purposes.
