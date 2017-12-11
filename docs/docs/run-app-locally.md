@@ -14,7 +14,7 @@ The app is not yet in a healthy state as the MySQL database has not been created
 
 ## Initializing the MySQL database
 
-From the project root, change into the `catswhocode/catswhocode` (The Django application directory).
+From the project root, change into the `catswhocode/app` (The Django application directory).
 
 Then setup the MySQL database that Django uses by running the following commands:
 

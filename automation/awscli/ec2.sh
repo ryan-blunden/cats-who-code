@@ -65,7 +65,7 @@ echo -e "[info]: Making request to launch instance. Result payload will display 
 EC2_RESULT=`aws ec2 run-instances \
     --image-id ${AMI_ID} \
     --count 1 \
-    --instance-type t2.large \
+    --instance-type m4.large \
     --key-name ${KEY_PAIR_NAME} \
     --user-data file://automation/awscli/userdata.sh \
     --subnet-id ${SUBNET_ID} \
