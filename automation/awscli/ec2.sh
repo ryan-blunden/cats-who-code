@@ -5,7 +5,7 @@
 
 set -e
 
-echo "[info]: Creating Cats Who Code Security Group".
+echo "[info]: Creating Cats Who Code Security Group."
 
 echo "VPC ID: "
 read VPC_ID
@@ -19,7 +19,7 @@ SECURITY_GROUP_ID=`aws ec2 create-security-group \
     --description "Cats Who Code Dev Server" \
     --group-name ${SECURITY_GROUP_NAME} | jq -r .GroupId`
 
-echo "[info]: Applying Ingress rules".
+echo "[info]: Applying Ingress rules."
 
 echo "Your IP Address (to restrict SSH access): "
 read YOUR_IP
@@ -46,7 +46,7 @@ aws ec2 authorize-security-group-ingress \
     --port 22 \
     --cidr ${YOUR_IP}/32
 
-echo -e "[info]: Configuring EC2 instance"
+echo "[info]: Configuring EC2 instance."
 
 echo "Instance name: "
 read INSTANCE_NAME
@@ -54,29 +54,29 @@ read INSTANCE_NAME
 echo "AMI ID: "
 read AMI_ID
 
-echo -e "Subnet ID: "
+echo "Subnet ID: "
 read SUBNET_ID
 
-echo -e "Key Pair name: "
+echo "Key Pair name: "
 read KEY_PAIR_NAME
 
-echo -e "[info]: Making request to launch instance. Result payload will display once complete.\n".
+echo -e "[info]: Making request to launch instance. Result payload will display once complete.\n"
 
 EC2_RESULT=`aws ec2 run-instances \
     --image-id ${AMI_ID} \
     --count 1 \
-    --instance-type t2.micro \
+    --instance-type t2.large \
     --key-name ${KEY_PAIR_NAME} \
     --user-data file://automation/awscli/userdata.sh \
     --subnet-id ${SUBNET_ID} \
     --security-group-ids ${SECURITY_GROUP_ID} \
     --associate-public-ip-address`
 
-echo $EC2_RESULT
+echo $EC2_RESULT | jq
 
-echo "[info]: Setting instance name".
+echo "[info]: Setting instance name."
 
 INSTANCE_ID=`echo $EC2_RESULT | jq -r .Instances[0].InstanceId`
 aws ec2 create-tags --resources ${INSTANCE_ID} --tags "Key=Name,Value=${INSTANCE_NAME}"
 
-echo "[info]: Finished.".
+echo "[info]: Finished."

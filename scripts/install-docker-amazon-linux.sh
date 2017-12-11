@@ -10,3 +10,14 @@ chmod +x /usr/local/bin/docker-compose
 
 # Start Docker now that it is installed
 service docker start
+
+#----------------------------------------------
+#  Create `docker` group to avoid using sudo
+#----------------------------------------------
+
+# This is a convenience step and should not be done in a production environment.
+# See https://docs.docker.com/engine/installation/linux/linux-postinstall/
+
+groupadd docker
+usermod -aG docker ec2-user
+reboot -f now # Required for group evaluation to take place

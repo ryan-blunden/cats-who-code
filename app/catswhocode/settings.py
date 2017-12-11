@@ -6,12 +6,7 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
 
-ALLOWED_HOSTS = [
-    'dev.catswhocode.io',
-    'test.catswhocode.io',
-    'stg.catswhocode.io',
-    'catswhocode.io',
-]
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',

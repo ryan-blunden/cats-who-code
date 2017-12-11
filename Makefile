@@ -58,19 +58,3 @@ app-stack:
 		--restart on-failure \
 		--publish list 80:8080 \
 		catswhocode/frontend
-
-mysql:
-	docker container run \
-		--detach \
-		--name mysql \
-		--restart on-failure \
-		--publish list 3306:3306 \
-		mysql:5.7
-
-redis:
-	docker container run \
-		--detach \
-		--name redis \
-		--restart on-failure \
-		--publish list 6379:6379 \
-		redis:4-alpine
