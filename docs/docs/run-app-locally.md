@@ -46,7 +46,7 @@ Here is a list of services that are available:
 - Python App server (served by NGINX): [http://localhost:8080/](http://localhost:8080/).
 - Docs: [http://localhost:3000/](http://localhost:3000/).
 - Amazon Linux Container: For using the AWS CLI.
-- DynamoDB Shell: [http://localhost:8000/](http://localhost:8000/shell/).
+- DynamoDB Shell: [http://localhost:8000/shell](http://localhost:8000/shell/).
 - MySQL: 127.0.0.1 on port 3306.
 - Portainer (Container management GUI): [http://localhost:9000/](http://localhost:9000/).
 
