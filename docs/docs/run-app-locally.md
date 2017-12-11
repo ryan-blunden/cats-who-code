@@ -2,7 +2,7 @@
 
 ## Bringing up the stack
 
-From the project root, change into the `catswhocode` directory and run
+From the project root directory and run
  
     make stack-dev ARGS=--build
 
