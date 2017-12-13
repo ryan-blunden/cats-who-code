@@ -30,31 +30,8 @@ stack-stop:
 awscli: stack-build
 	docker container run --rm -it -v $(CURDIR)/automation:/usr/src/app/automation catswhocode/awscli
 
-# TODO: Command for running front-end and api - NOT YET WORKING
-# NOTE: It's presumed that the host will a env file at cats-who-code/app/app.prod.env
-app-stack:
-	# Networking
-	if docker network ls -f name=catswhocode_frontend return code is not 0
-		docker network create catswhocode_frontend
-	fi
+app-stack-start:
+	./bin/app-stack-start.sh
 
-	# API
-	docker container run \
-		--detach \
-		--env-file app/app.prod.env \
-		--init \
-		--volume $(CURDIR)/app/app.prod.env /usr/src/app/app/app.prod.env \
-		--network catswhocode_frontend \
-		--hostname api \
-		--name catswhocode_api \
-		--restart on-failure \
-		catswhocode/api
-
-	# FRONT-END
-	docker container run \
-		--detach \
-		--network catswhocode_frontend \
-		--name catswhocode_frontend \
-		--restart on-failure \
-		--publish list 80:8080 \
-		catswhocode/frontend
+app-stack-stop:
+	./bin/app-stack-stop.sh

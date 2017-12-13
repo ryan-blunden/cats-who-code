@@ -3,6 +3,9 @@
 # To find the list of Amazon Liunx AMI IDs for each region, go to
 # https://aws.amazon.com/amazon-linux-ami/#Amazon_Linux_AMI_IDs
 
+# TODO:
+# - If failure at any stage, delete previously created resources.
+#
 set -e
 
 echo "[info]: Creating Cats Who Code Security Group."
