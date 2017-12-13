@@ -7,7 +7,7 @@ resource "aws_vpc" "cwc-dev" {
   enable_dns_hostnames = true
 
   tags {
-    Name = "cats-who-code-dev-vpc"
+    Name = "cats-who-code-ryan-vpc"
   }
 }
 
@@ -46,7 +46,7 @@ resource "aws_eip" "cwc-ngw-eip" {
 
 resource "aws_nat_gateway" "cwc-ngw" {
   allocation_id = "${aws_eip.cwc-ngw-eip.id}"
-  subnet_id     = "${aws_subnet.us-west-2a-public.id}"
+  subnet_id     = "${aws_subnet.ap-southeast-2a-public.id}"
 
   tags {
     Name = "cwc-ngw"
@@ -58,7 +58,7 @@ resource "aws_nat_gateway" "cwc-ngw" {
 # PUBLIC SUBNETS
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "aws_subnet" "us-west-2a-public" {
+resource "aws_subnet" "ap-southeast-2a-public" {
   vpc_id = "${aws_vpc.cwc-dev.id}"
   cidr_block = "${var.public_subnet_cidrs["a"]}"
   availability_zone = "${var.us_west_2_azs["a"]}"
@@ -68,7 +68,7 @@ resource "aws_subnet" "us-west-2a-public" {
   }
 }
 
-resource "aws_subnet" "us-west-2b-public" {
+resource "aws_subnet" "ap-southeast-2b-public" {
   vpc_id = "${aws_vpc.cwc-dev.id}"
   cidr_block = "${var.public_subnet_cidrs["b"]}"
   availability_zone = "${var.us_west_2_azs["b"]}"
@@ -99,13 +99,13 @@ resource "aws_route" "cwc-public-igw-route" {
   gateway_id = "${aws_internet_gateway.cwc-igw.id}"
 }
 
-resource "aws_route_table_association" "us-west-2a-public" {
-  subnet_id = "${aws_subnet.us-west-2a-public.id}"
+resource "aws_route_table_association" "ap-southeast-2a-public" {
+  subnet_id = "${aws_subnet.ap-southeast-2a-public.id}"
   route_table_id = "${aws_route_table.cwc-route-table-public.id}"
 }
 
-resource "aws_route_table_association" "us-west-2b-public" {
-  subnet_id = "${aws_subnet.us-west-2b-public.id}"
+resource "aws_route_table_association" "ap-southeast-2b-public" {
+  subnet_id = "${aws_subnet.ap-southeast-2b-public.id}"
   route_table_id = "${aws_route_table.cwc-route-table-public.id}"
 }
 
@@ -114,7 +114,7 @@ resource "aws_route_table_association" "us-west-2b-public" {
 # PRIVATE SUBNETS
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "aws_subnet" "us-west-2a-private" {
+resource "aws_subnet" "ap-southeast-2a-private" {
   vpc_id = "${aws_vpc.cwc-dev.id}"
   cidr_block = "${var.private_subnet_cidrs["a"]}"
   availability_zone = "${var.us_west_2_azs["a"]}"
@@ -124,7 +124,7 @@ resource "aws_subnet" "us-west-2a-private" {
   }
 }
 
-resource "aws_subnet" "us-west-2b-private" {
+resource "aws_subnet" "ap-southeast-2b-private" {
   vpc_id = "${aws_vpc.cwc-dev.id}"
   cidr_block = "${var.private_subnet_cidrs["b"]}"
   availability_zone = "${var.us_west_2_azs["b"]}"
@@ -155,12 +155,12 @@ resource "aws_route" "cwc-private-ngw-route" {
   nat_gateway_id = "${aws_nat_gateway.cwc-ngw.id}"
 }
 
-resource "aws_route_table_association" "us-west-2a-private" {
-  subnet_id = "${aws_subnet.us-west-2a-private.id}"
+resource "aws_route_table_association" "ap-southeast-2a-private" {
+  subnet_id = "${aws_subnet.ap-southeast-2a-private.id}"
   route_table_id = "${aws_route_table.cwc-route-table-private.id}"
 }
 
-resource "aws_route_table_association" "us-west-2b-private" {
-  subnet_id = "${aws_subnet.us-west-2b-private.id}"
+resource "aws_route_table_association" "ap-southeast-2b-private" {
+  subnet_id = "${aws_subnet.ap-southeast-2b-private.id}"
   route_table_id = "${aws_route_table.cwc-route-table-private.id}"
 }

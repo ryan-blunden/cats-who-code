@@ -3,7 +3,7 @@ variable "aws_secret_key" {}
 
 variable "aws_region" {
   description = "EC2 Region for the VPC"
-  default = "us-west-2"
+  default = "ap-southeast-2"
 }
 
 variable "vpc_cidr" {
@@ -14,15 +14,15 @@ variable "vpc_cidr" {
 variable "us_west_2_azs" {
   description = "CIDRs for the Private Subnets"
   default = {
-    a = "us-west-2a"
-    b = "us-west-2b"
-    c = "us-west-2c"
+    a = "ap-southeast-2a"
+    b = "ap-southeast-2b"
+    c = "ap-southeast-2c"
   }
 }
 
 variable "aws_nat_gateway_subnet" {
   description = "Public region for the Nat Gateway"
-  default = "us-west-2"
+  default = "ap-southeast-2"
 }
 
 variable "public_subnet_cidrs" {
@@ -47,6 +47,6 @@ variable "amis" {
   description = "AMIs by region"
   default = {
     us-west-2 = "ami-bf4193c7"
+    ap-southeast-2 = "ami-ff4ea59d"
   }
 }
-
