@@ -53,4 +53,10 @@ app-stack-start:
 		catswhocode/frontend
 
 app-stack-stop:
-	./bin/app-stack-stop.sh
+	docker container stop catswhocode_api
+	docker container rm catswhocode_api
+
+	docker container stop catswhocode_frontend
+	docker container rm catswhocode_frontend
+
+	docker network rm catswhocode_frontend
