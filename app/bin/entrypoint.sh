@@ -41,8 +41,8 @@ fi
 # Wait for MySQL and Redis to be accepting connections
 #-----------------------------------------------------------
 
-./bin/wait-for-it.sh db:3306 -- echo '[info]: MySQL is up.'
-./bin/wait-for-it.sh cache:6379 -- echo '[info]: Redis is up.'
+./bin/wait-for-it.sh ${DB_HOST}:${DB_PORT} -- echo "[info]: MySQL is up at ${DB_HOST} on ${DB_PORT}."
+./bin/wait-for-it.sh ${CACHE_HOST}:${CACHE_PORT} -- echo "[info]: Redis is up at ${CACHE_HOST} on ${CACHE_PORT}."
 
 
 #-------------------------------------------------------------------------------

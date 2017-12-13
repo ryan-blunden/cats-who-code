@@ -25,5 +25,5 @@ docker container run \
     --network catswhocode_frontend \
     --name catswhocode_frontend \
     --restart on-failure \
-    --publish 80:8000 \
+    --publish 80:8080 \
     catswhocode/frontend

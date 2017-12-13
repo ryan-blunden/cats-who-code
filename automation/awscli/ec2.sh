@@ -21,6 +21,7 @@ SECURITY_GROUP_ID=`aws ec2 create-security-group \
     --vpc-id ${VPC_ID} \
     --description "Cats Who Code Dev Server" \
     --group-name ${SECURITY_GROUP_NAME} | jq -r .GroupId`
+aws ec2 create-tags --resources ${SECURITY_GROUP_ID} --tags "Key=Name,Value=${SECURITY_GROUP_NAME}"
 
 echo "[info]: Applying Ingress rules."
 
@@ -54,6 +55,9 @@ echo "[info]: Configuring EC2 instance."
 echo "Instance name: "
 read INSTANCE_NAME
 
+echo "Instance type: "
+read INSTANCE_TYPE
+
 echo "AMI ID: "
 read AMI_ID
 
@@ -68,7 +72,7 @@ echo -e "[info]: Making request to launch instance. Result payload will display 
 EC2_RESULT=`aws ec2 run-instances \
     --image-id ${AMI_ID} \
     --count 1 \
-    --instance-type m4.large \
+    --instance-type ${INSTANCE_TYPE} \
     --key-name ${KEY_PAIR_NAME} \
     --user-data file://automation/awscli/userdata.sh \
     --subnet-id ${SUBNET_ID} \

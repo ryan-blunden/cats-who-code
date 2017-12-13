@@ -6,7 +6,7 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['api']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -123,6 +123,6 @@ REST_FRAMEWORK = {
 }
 
 if DEBUG:
-    ALLOWED_HOSTS = ['0.0.0.0', 'localhost']
+    ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'api', '*']
     INTERNAL_IPS = ('127.0.0.1',)
     INSTALLED_APPS += ['django_extensions', ]

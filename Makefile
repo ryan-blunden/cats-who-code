@@ -31,7 +31,26 @@ awscli: stack-build
 	docker container run --rm -it -v $(CURDIR)/automation:/usr/src/app/automation catswhocode/awscli
 
 app-stack-start:
-	./bin/app-stack-start.sh
+	docker network create catswhocode_frontend
+
+	docker container run \
+		--detach \
+		--env-file $(CURDIR)/app/app.prod.env \
+		--init \
+		--network catswhocode_frontend \
+		--network-alias api \
+		--hostname api \
+		--name catswhocode_api \
+		--restart on-failure \
+		catswhocode/api
+
+	docker container run \
+		--detach \
+		--network catswhocode_frontend \
+		--name catswhocode_frontend \
+		--restart on-failure \
+		--publish 80:8080 \
+		catswhocode/frontend
 
 app-stack-stop:
 	./bin/app-stack-stop.sh
