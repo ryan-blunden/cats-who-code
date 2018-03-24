@@ -1,5 +1,10 @@
 FROM catswhocode/awslinux:latest
 
+ENV LC_CTYPE=en_US.utf8
+ENV LC_ALL=en_US.utf8
+ENV LANG=en_US.utf8
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /usr/src/app
 
 RUN yum -y update && \
