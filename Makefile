@@ -5,10 +5,16 @@ SHELL := /bin/bash
 # For running the stack on a single machine, either locally (make stack-dev) or remote (make stack).
 #-----------------------------------------------------------------------------------------------------------------------
 
+# TODO: Has to be a better way to remove files across Windows and *nix.
+# See https://stackoverflow.com/questions/4058840/makefile-that-distincts-between-windows-and-unix-like-systems
 stack-clean:
-	@rm -f Pipfile.lock
-	@rm -f docs/Pipfile.lock
-	@rm -f app/Pipfile.lock
+	- @rm -f Pipfile.lock
+	- @rm -f docs/Pipfile.lock
+	- @rm -f app/Pipfile.lock
+
+	- @del Pipfile.lock
+	- @del docs/Pipfile.lock
+	- @del app/Pipfile.lock
 
 stack-build: stack-clean
 	docker-compose build ${ARGS}
@@ -26,9 +32,6 @@ stack-stop:
 # STANDALONE CONTAINER RUN COMMANDS
 # For running containers without Docker Compose for when we deploy the app, MySQL ad Redis to different instances.
 #-----------------------------------------------------------------------------------------------------------------------
-
-awscli: stack-build
-	docker container run --rm -it -v $(CURDIR)/automation:/usr/src/app/automation catswhocode/awscli
 
 app-stack-start:
 	docker network create catswhocode_frontend
