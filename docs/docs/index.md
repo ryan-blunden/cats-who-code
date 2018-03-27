@@ -12,16 +12,6 @@ It is designed to challenge or certify your ability to create the best possible 
     
 It also serves a playground for experimenting with AWS services in the context of a real application with enough complexity to make the implementation non-trivial.
 
-## Running the application locally
-
-The app is able to be built and run locally via Docker Compose by running.
-
-    make stack-dev
-    
-This will locally build and     
-    
-Checkout the `Makefile` for other commands. 
- 
 ## How the Cats Who Code helps when training students in AWS
 
 When I teach AWS, I want students to work as closely as is possible and practical to the way they would in the real world, taking into account the same things they'll need to consider when on the job. That's why I created this application.

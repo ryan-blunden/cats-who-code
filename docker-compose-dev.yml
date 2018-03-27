@@ -4,12 +4,35 @@ services:
   api:
     volumes:
       - ./app:/usr/src/app
+    networks:
+      - frontend
+      - backend
     env_file:
       - app/app.dev.env
 
   frontend:
     ports:
       - '8080:8080'
+
+  db:
+    image: mysql:5.7
+    container_name: catswhocode_db
+    ports:
+      - '3306:3306'
+    networks:
+      - backend
+    restart: on-failure
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=True
+
+  cache:
+    image: redis:4-alpine
+    container_name: catswhocode_cache
+    ports:
+      - '6379:6379'
+    networks:
+      - backend
+    restart: on-failure
 
   docs:
     volumes:
@@ -35,3 +58,7 @@ services:
     ports:
       - '9000:9000'
     restart: on-failure
+
+networks:
+  frontend:
+  backend:

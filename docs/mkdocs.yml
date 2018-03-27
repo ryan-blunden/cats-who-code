@@ -10,6 +10,7 @@ markdown_extensions:
 
 pages:
 - Home: 'index.md'
-- Local Environment Setup: 'local-dev-setup.md'
-- Running the App Locally: 'run-app-locally.md'
+- Running the App Standalone: 'run-app-locally.md'
+- Running the App in Production: 'run-app-production.md'
+- For Django Developers working on Cats Who Code: 'local-dev-setup.md'
 

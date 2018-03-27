@@ -1,26 +1,6 @@
 version: '3.3'
 
 services:
-  db:
-    image: mysql:5.7
-    container_name: catswhocode_db
-    ports:
-      - '3306:3306'
-    networks:
-      - backend
-    restart: on-failure
-    environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=True
-
-  cache:
-    image: redis:4-alpine
-    container_name: catswhocode_cache
-    ports:
-      - '6379:6379'
-    networks:
-      - backend
-    restart: on-failure
-
   api:
     build:
       dockerfile: docker/api/Dockerfile
@@ -29,9 +9,6 @@ services:
     container_name: catswhocode_api
     ports:
       - '8000'
-    depends_on:
-      - db
-      - cache
     networks:
       - frontend
       - backend
@@ -55,4 +32,4 @@ services:
 
 networks:
   frontend:
-  backend:
+

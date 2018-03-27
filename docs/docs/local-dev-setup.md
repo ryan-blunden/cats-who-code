@@ -1,4 +1,8 @@
-# Local Dev Setup
+# For Django Developers working on Cats Who Code
+
+!!! note "Note!"
+
+    This is a guide for developers that want to work on the Cats Who Code application. These instructions are not required to simply run the app.
 
 Install the following:
 
