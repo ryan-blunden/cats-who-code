@@ -1,4 +1,4 @@
-FROM python:3.6.3-slim
+FROM python:3.6.4-slim
 
 ENV LC_CTYPE=C.UTF-8
 ENV LC_ALL=C.UTF-8
@@ -19,7 +19,7 @@ RUN pip install pip setuptools --upgrade && \
     ln -s /usr/local/bin/python /bin/python
 
 COPY app/Pipfile Pipfile
-RUN pipenv install --deploy --system
+RUN pipenv install --deploy --system --verbose
 
 COPY app .
 

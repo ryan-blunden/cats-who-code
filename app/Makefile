@@ -1,22 +1,23 @@
 APP_CONTAINER=catswhocode_api
 
 shell:
-	docker exec -it $(APP_CONTAINER) bash
+	docker container exec -it $(APP_CONTAINER) bash
 
 db-create-dev:
-	docker exec -it catswhocode_db bash -c 'echo "CREATE DATABASE catswhocode CHARACTER SET utf8 COLLATE utf8_bin;" | mysql -u root'
+	docker container exec -it catswhocode_db bash -c 'echo "CREATE DATABASE catswhocode CHARACTER SET utf8 COLLATE utf8_bin;" | mysql -u root'
+	$(MAKE) restart
 
 db-destroy-dev:
-	docker exec -it catswhocode_db bash -c 'echo "DROP DATABASE catswhocode;" | mysql -u root'
+	docker container exec -it catswhocode_db bash -c 'echo "DROP DATABASE catswhocode;" | mysql -u root'
 
 superuser:
-	docker exec -it $(APP_CONTAINER) ./manage.py createsuperuser
+	docker container exec -it $(APP_CONTAINER) ./manage.py createsuperuser
 
 migrations:
-	docker exec -it $(APP_CONTAINER) ./manage.py makemigrations
+	docker container exec -it $(APP_CONTAINER) ./manage.py makemigrations
 
 migrate:
-	docker exec -it $(APP_CONTAINER) ./manage.py migrate --noinput
+	docker container exec -it $(APP_CONTAINER) ./manage.py migrate --noinput
 
 restart:
 	docker container restart $(APP_CONTAINER)

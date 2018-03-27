@@ -2,7 +2,6 @@ version: '3.3'
 
 services:
   api:
-    command: './manage.py runserver 0.0.0.0:8000'
     volumes:
       - ./app:/usr/src/app
     env_file:
@@ -16,10 +15,23 @@ services:
     volumes:
       - ./docs:/usr/src/app
 
-  awslinux:
+  docs:
+    build:
+      dockerfile: docker/docs/Dockerfile
+      context: ./
+    image: catswhocode/docs:latest
+    container_name: catswhocode_docs
     volumes:
-      - .:/usr/src/app
+      - ./docs:/usr/src/app
+    ports:
+      - '3000:8000'
+    restart: on-failure
 
-  awscli:
+  portainer:
+    image: portainer/portainer:latest
+    container_name: catswhocode_portainer
     volumes:
-      - ./docker/awscli:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - '9000:9000'
+    restart: on-failure

@@ -11,29 +11,29 @@ python_version = '3.6'
 
 [packages]
 
-django = "*"
-django-extensions = "*"
-djangorestframework = "*"
-django-filter = "*"
-djangorestframework-camel-case = "*"
-django-health-check = "*"
-python-dateutil = "*"
-pytz = "*"
-requests = "*"
-whitenoise = "*"
-mysqlclient = "*"
-django-storages = "*"
-boto3 = "*"
-django-redis-cache = "*"
-uwsgi = "*"
-awscli = "*"
-pillow = "*"
+django = '*'
+django-extensions = '*'
+djangorestframework = '*'
+django-filter = '*'
+djangorestframework-camel-case = '*'
+django-health-check = '*'
+python-dateutil = '*'
+pytz = '*'
+requests = '*'
+whitenoise = '*'
+mysqlclient = '*'
+django-storages = '*'
+boto3 = '*'
+django-redis-cache = '*'
+uwsgi = '*'
+awscli = '*'
+pillow = '*'
 
 
 ['dev-packages']
 
-ipython = "*"
-werkzeug = "*"
-pylint = "*"
-"flake8" = "*"
-"autopep8" = "*"
+ipython = '*'
+werkzeug = '*'
+pylint = '*'
+flake8 = '*'
+autopep8 = '*'
