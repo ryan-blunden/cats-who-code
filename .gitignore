@@ -104,7 +104,7 @@ ENV/
 db.sqlite3
 
 # App
-app.prod.env
+app/app.prod.env.example
 app.stage.env
 app.test.env
 
