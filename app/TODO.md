@@ -2,7 +2,6 @@
 
 - Static files S3 production configuration.
 - Media files S3 production configuration.
-- Instructions for app.prod.env.
 - Instructions for EC2 prod setup.
 - Fix One-to-One model error for Cats.
 

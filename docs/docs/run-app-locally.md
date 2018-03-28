@@ -4,7 +4,7 @@
 
 From the project root directory and run
  
-    make stack-dev ARGS=--build
+    make stack-dev-start ARGS=--build
 
 This will build the local Docker images and run the containers using Docker Compose.
 
@@ -51,3 +51,7 @@ Here is a list of services that are available:
 
 There are other services (e.g. mock mail server and redis) that have a dynamic host port bound. Use `docker ps` if you'd 
 like to connect to those.
+
+## Bringing down the stack
+
+Run `make stack-dev-stop`.

@@ -2,7 +2,7 @@ SHELL := /bin/bash
 
 #-----------------------------------------------------------------------------------------------------------------------
 # DOCKER COMPOSE RUN COMMANDS
-# For running the stack on a single machine, either locally (make stack-dev) or remote (make stack).
+# For running the stack on a single machine, either locally (make stack-dev-start) or remote (make stack).
 #-----------------------------------------------------------------------------------------------------------------------
 
 # TODO: Has to be a better way to remove files across Windows and *nix.
@@ -22,8 +22,11 @@ stack-build: stack-clean
 stack: stack-clean
 	docker-compose up ${ARGS}
 
-stack-dev: stack-clean
+stack-dev-start: stack-clean
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml up ${ARGS}
+
+stack-dev-stop:
+	docker-compose -f docker-compose.yml -f docker-compose-dev.yml stop
 
 stack-stop:
 	docker-compose stop
