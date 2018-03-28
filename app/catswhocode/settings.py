@@ -109,7 +109,8 @@ USE_L10N = False
 USE_TZ = True
 
 # Static and Media storage and S3 settings
-if DEBUG:
+STORAGE_MODE = os.environ.get('STORAGE_MODE', 'local')
+if STORAGE_MODE == 'local':
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     STATIC_URL = '/static/'
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
