@@ -11,7 +11,6 @@ services:
       - '8000'
     networks:
       - frontend
-      - backend
     restart: on-failure
     env_file:
       - app/app.prod.env
