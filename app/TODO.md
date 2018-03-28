@@ -4,7 +4,8 @@
 - Media files S3 production configuration.
 - Instructions for EC2 prod setup.
 - Fix One-to-One model error for Cats.
-
+- Simplify Makefile and use docker-compose only for development.
+- Add documentation for using S3 for static and media hosting.
 
 # ToDo Later
 

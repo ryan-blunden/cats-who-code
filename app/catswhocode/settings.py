@@ -27,7 +27,6 @@ INSTALLED_APPS = [
 
     'members',
     'cats',
-
 ]
 
 MIDDLEWARE = [
@@ -109,13 +108,27 @@ USE_I18N = False
 USE_L10N = False
 USE_TZ = True
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Static and Media storage and S3 settings
+if DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATIC_URL = '/static/'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
+else:
+    S3_USE_SIGV4 = True
+    AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
 
+    STATICFILES_STORAGE = 'catswhocode.storage.StaticStorage'
+    STATICFILES_LOCATION = os.environ['STATICFILES_PATH_PREFIX']
+    STATIC_URL = os.environ['STATICFILES_BASE_URL']
+
+    DEFAULT_FILE_STORAGE = 'catswhocode.storage.MediaStorage'
+    MEDIAFILES_LOCATION = os.environ['MEDIAFILES_PATH_PREFIX']
+    MEDIA_URL = os.environ['MEDIAFILES_BASE_URL']
+
+# REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
