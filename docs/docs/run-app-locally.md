@@ -4,7 +4,7 @@
 
 From the project root directory and run
  
-    make stack-dev-start ARGS=--build
+    make app-dev-start ARGS=--build
 
 This will build the local Docker images and run the containers using Docker Compose.
 
@@ -54,4 +54,4 @@ like to connect to those.
 
 ## Bringing down the stack
 
-Run `make stack-dev-stop`.
+Run `make app-dev-stop`.

@@ -1,14 +1,13 @@
 version: '3.3'
 
 services:
+
   api:
     volumes:
       - ./app:/usr/src/app
     networks:
       - frontend
       - backend
-    env_file:
-      - app/app.dev.env
 
   frontend:
     ports:

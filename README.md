@@ -1,6 +1,6 @@
 # Cats Who Code
 
-Instragram like feed but of cats or kittens who either are coding, or think they're coding. Used for learning AWS. More details coming soon.
+Instragram like feed but of cats or kittens who either are coding, or think they're coding. Used for learning Docker and AWS.
 
 ## System Requirements
 

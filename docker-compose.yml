@@ -1,6 +1,7 @@
 version: '3.3'
 
 services:
+
   api:
     build:
       dockerfile: docker/api/Dockerfile
@@ -13,7 +14,7 @@ services:
       - frontend
     restart: on-failure
     env_file:
-      - app/app.prod.env
+      - app/app.env
 
   frontend:
     build:
