@@ -108,26 +108,16 @@ USE_I18N = False
 USE_L10N = False
 USE_TZ = True
 
-# Static and Media storage and S3 settings
-STORAGE_MODE = os.environ.get('STORAGE_MODE', 'local')
-if STORAGE_MODE == 'local':
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-    STATIC_URL = '/static/'
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+S3_USE_SIGV4 = True
+AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
 
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-    MEDIA_URL = '/media/'
-else:
-    S3_USE_SIGV4 = True
-    AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
+STATICFILES_STORAGE = 'catswhocode.storage.StaticStorage'
+STATICFILES_LOCATION = os.environ['STATICFILES_PATH_PREFIX']
+STATIC_URL = os.environ['STATICFILES_BASE_URL']
 
-    STATICFILES_STORAGE = 'catswhocode.storage.StaticStorage'
-    STATICFILES_LOCATION = os.environ['STATICFILES_PATH_PREFIX']
-    STATIC_URL = os.environ['STATICFILES_BASE_URL']
-
-    DEFAULT_FILE_STORAGE = 'catswhocode.storage.MediaStorage'
-    MEDIAFILES_LOCATION = os.environ['MEDIAFILES_PATH_PREFIX']
-    MEDIA_URL = os.environ['MEDIAFILES_BASE_URL']
+DEFAULT_FILE_STORAGE = 'catswhocode.storage.MediaStorage'
+MEDIAFILES_LOCATION = os.environ['MEDIAFILES_PATH_PREFIX']
+MEDIA_URL = os.environ['MEDIAFILES_BASE_URL']
 
 # REST Framework
 REST_FRAMEWORK = {
@@ -138,5 +128,15 @@ REST_FRAMEWORK = {
 
 if DEBUG:
     ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'api', '*']
-    INTERNAL_IPS = ('127.0.0.1',)
+    INTERNAL_IPS = ['127.0.0.1']
+
     INSTALLED_APPS += ['django_extensions', ]
+
+    EMAIL_HOST = 'mail'
+    EMAIL_PORT = 25
+
+    AWS_S3_ENDPOINT_URL = 'http://s3:9000'
+    AWS_S3_CUSTOM_DOMAIN = 'localhost:9000/cats-who-code'
+    AWS_ACCESS_KEY_ID = 'JZ2ACMY43EXTMVWVOYZD'
+    AWS_SECRET_ACCESS_KEY = '7Xn9y+YKQdJ2azRR2QmKDqa9ksa4zfwGcyjq/saS'
+

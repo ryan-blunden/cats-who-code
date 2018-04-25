@@ -2,7 +2,7 @@
 
 ## Bringing up the stack
 
-From the project root directory and run
+From the project root directory and run:
  
     make app-dev-start ARGS=--build
 
@@ -10,7 +10,7 @@ This will build the local Docker images and run the containers using Docker Comp
 
 Once the stack has finished coming up, ensure the app is receiving requests by going to [http://localhost:8080](http://localhost:8080).
 
-The app is not yet in a healthy state as the MySQL database has not been created. You'll see an error something like `django.db.utils.OperationalError: (1049, "Unknown database 'catswhocode'")` so so lets continue.
+The app is not yet in a healthy state as the MySQL database has not been created and the S3 bucket running on the Minio server has also not been created. 
 
 ## Initializing the MySQL database
 
@@ -19,7 +19,11 @@ From the project root, change into the `catswhocode/app` (The Django application
 Then setup the MySQL database that Django uses by running the following commands:
 
     make db-create-dev
-    make migrate    
+    make migrate   
+    
+## Creating the bucket
+
+Still in `catswhocode/app`, run `make bucket-create-dev`.
 
 ## Health Check
 
@@ -41,17 +45,23 @@ You can (presuming you set the photo to approved) see the photo in the cats feed
 
 ## Index of Services 
 
-Here is a list of services that are available:
+Here is a list of services that are available in standalone (dev) mnode:
 
-- Python App server (served by NGINX): [http://localhost:8080/](http://localhost:8080/).
-- Docs: [http://localhost:3000/](http://localhost:3000/).
-- MySQL: 127.0.0.1 on port 3306.
-- Redis: 127.0.0.1 on port 6379.
-- Portainer (Container management GUI): [http://localhost:9000/](http://localhost:9000/).
+- ***NGINX Front-End (serves the Django app)**: [http://localhost:8080/](http://localhost:8080/).
+- **Python (Django) App server**: [http://localhost:8000/](http://localhost:8080/).
+- **MySQL**: 127.0.0.1 on port 3306.
+- **Redis**: 127.0.0.1 on port 6379.
+- **Minio (S3) Browser**: [http://localhost:9000/minio/](http://localhost:9000/minio/).
+- **Redis GUI**: [http://localhost:8081/](http://localhost:8081/).
+- **Mail Server**: [http://localhost:8082/](http://localhost:8082/).
+- **Docs**: [http://localhost:3000/](http://localhost:3000/).
+- **Portainer Docker GUI**: [http://localhost:9001/](http://localhost:9001/).
 
 There are other services (e.g. mock mail server and redis) that have a dynamic host port bound. Use `docker ps` if you'd 
 like to connect to those.
 
 ## Bringing down the stack
 
-Run `make app-dev-stop`.
+Sending a SIGINT (CTRL+C) should shut things down cleanly but in case it does not, just run:
+
+    `make app-dev-stop`.

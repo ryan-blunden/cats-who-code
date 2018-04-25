@@ -3,6 +3,8 @@ version: '3.3'
 services:
 
   api:
+    ports:
+      - '8000:8000'
     volumes:
       - ./app:/usr/src/app
     networks:
@@ -33,9 +35,40 @@ services:
       - backend
     restart: on-failure
 
-  docs:
-    volumes:
-      - ./docs:/usr/src/app
+  redis-gui:
+    image: rediscommander/redis-commander:latest
+    container_name: catswhocode_redis_gui
+    environment:
+      - REDIS_HOSTS=cache
+    ports:
+      - '8081:8081'
+    networks:
+      - backend
+    restart: on-failure
+    depends_on:
+      - cache
+
+  mail:
+    image: djfarrelly/maildev:latest
+    container_name: catswhocode_mail
+    ports:
+      - '8082:80'
+    networks:
+      - backend
+    restart: on-failure
+
+  s3:
+    image: minio/minio:latest
+    container_name: catswhocode_s3
+    command: ['server', '/data']
+    ports:
+      - '9000:9000'
+    environment:
+      - MINIO_ACCESS_KEY=JZ2ACMY43EXTMVWVOYZD
+      - MINIO_SECRET_KEY=7Xn9y+YKQdJ2azRR2QmKDqa9ksa4zfwGcyjq/saS
+    networks:
+      - backend
+    restart: on-failure
 
   docs:
     build:
@@ -55,7 +88,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - '9000:9000'
+      - '9001:9000'
     restart: on-failure
 
 networks:

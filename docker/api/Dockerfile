@@ -9,14 +9,15 @@ HEALTHCHECK CMD curl --fail http://localhost${UWSGI_HTTP}/health-check/ || exit 
 
 RUN apt-get update && \
     apt-get upgrade -y  && \
-    apt-get install -y --no-install-recommends curl libmysqlclient-dev gcc && \
+    apt-get install -y --no-install-recommends curl libmysqlclient-dev gcc jq less groff && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
 
 RUN pip install pip setuptools --upgrade && \
     pip install pipenv && \
-    ln -s /usr/local/bin/python /bin/python
+    ln -s /usr/local/bin/python /bin/python && \
+    printf "\ncomplete -C '/usr/local/bin/aws_completer' aws" >> /root/.bashrc
 
 COPY app/Pipfile Pipfile
 RUN pipenv install --deploy --system --verbose
