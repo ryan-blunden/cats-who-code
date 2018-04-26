@@ -20,9 +20,9 @@ clean:
 build: clean
 	docker-compose build ${ARGS}
 
-##############
-# Dev Server #
-##############
+################
+## Dev Server ##
+################
 #
 # Runs all required services in Docker, plus the docs, mail server and portainer.
 #
@@ -33,9 +33,9 @@ app-dev-start:
 app-dev-stop:
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml stop
 
-#####################
-# Production Server #
-#####################
+#######################
+## Production Server ##
+#######################
 #
 # Only starts the front-end and application server
 #
