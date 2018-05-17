@@ -12,7 +12,6 @@ services:
       - '8000'
     networks:
       - frontend
-    restart: on-failure
     env_file:
       - app/app.env
 
@@ -28,7 +27,6 @@ services:
       - api
     networks:
       - frontend
-    restart: on-failure
 
 networks:
   frontend:

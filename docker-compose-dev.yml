@@ -22,7 +22,6 @@ services:
       - '3306:3306'
     networks:
       - backend
-    restart: on-failure
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=True
 
@@ -33,7 +32,6 @@ services:
       - '6379:6379'
     networks:
       - backend
-    restart: on-failure
 
   redis-gui:
     image: rediscommander/redis-commander:latest
@@ -44,7 +42,6 @@ services:
       - '8081:8081'
     networks:
       - backend
-    restart: on-failure
     depends_on:
       - cache
 
@@ -55,7 +52,6 @@ services:
       - '8082:80'
     networks:
       - backend
-    restart: on-failure
 
   s3:
     image: minio/minio:latest
@@ -68,7 +64,6 @@ services:
       - MINIO_SECRET_KEY=7Xn9y+YKQdJ2azRR2QmKDqa9ksa4zfwGcyjq/saS
     networks:
       - backend
-    restart: on-failure
 
   docs:
     build:
@@ -80,7 +75,6 @@ services:
       - ./docs:/usr/src/app
     ports:
       - '3000:8000'
-    restart: on-failure
 
   portainer:
     image: portainer/portainer:latest
@@ -89,7 +83,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - '9001:9000'
-    restart: on-failure
 
 networks:
   frontend:
