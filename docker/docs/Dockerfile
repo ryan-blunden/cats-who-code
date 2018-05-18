@@ -18,9 +18,7 @@ RUN ln -s /usr/local/bin/python /bin/python
 COPY ./docs .
 
 RUN pip install pip setuptools --upgrade && \
-    pip install pipenv && \
-    pipenv install --system --deploy
-
+    pip install -r requirements.txt
 
 #
 ## MKDOCS

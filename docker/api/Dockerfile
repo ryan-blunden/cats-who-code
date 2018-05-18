@@ -19,8 +19,8 @@ RUN pip install pip setuptools --upgrade && \
     ln -s /usr/local/bin/python /bin/python && \
     printf "\ncomplete -C '/usr/local/bin/aws_completer' aws" >> /root/.bashrc
 
-COPY app/Pipfile Pipfile
-RUN pipenv install --deploy --system --verbose
+COPY app/requirements.txt .
+RUN pip install -r requirements.txt
 
 COPY app .
 
