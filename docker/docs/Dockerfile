@@ -24,11 +24,6 @@ RUN pip install pip setuptools --upgrade && \
 ## MKDOCS
 #
 
-# Remove the host:port config in the JS live reload so live-reloading works.
-# Credit: https://github.com/metal3d/docker-mkdocs/blob/master/livereload.patch
-#COPY livereload-server.py.patch /tmp/livereload-server.py.patch
-RUN patch /usr/local/lib/python3.6/site-packages/livereload/server.py livereload-server.py.patch
-
 EXPOSE 8000
 
 CMD ["mkdocs", "serve", "--dev-addr=0.0.0.0:8000"]
