@@ -1,4 +1,4 @@
-FROM python:3.6.4-slim
+FROM python:3.6.5-slim
 
 ENV LC_CTYPE=C.UTF-8
 ENV LC_ALL=C.UTF-8
