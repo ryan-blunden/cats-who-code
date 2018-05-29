@@ -22,7 +22,9 @@ Then setup the MySQL database that Django uses by running the following commands
     
 ## Creating the bucket
 
-Still in `app`, run `make bucket-create-dev`.
+Still in `app`, run:
+
+    make bucket-create-dev
 
 ## Health Check
 
@@ -63,4 +65,4 @@ like to connect to those.
 
 Sending a SIGINT (CTRL+C) should shut things down cleanly but in case it does not, just run:
 
-    `make app-dev-stop`.
+    make app-dev-stop
