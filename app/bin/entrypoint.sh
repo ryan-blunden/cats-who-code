@@ -51,7 +51,7 @@ fi
 if [ -v DJANGO_DEBUG ]; then
     if [ ! -f Pipfile.lock ]; then
         echo '[info]: Installing development packages as DJANGO_DEBUG is set.'
-        pipenv install --dev --deploy --system
+        pip install -r requirements-development.txt
     fi
 fi
 

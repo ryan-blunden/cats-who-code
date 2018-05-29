@@ -35,7 +35,7 @@ db-destroy-dev:
 bucket-create-dev:
 	docker container run \
 		--rm \
-		--network=cats-who-code_backend \
+		--network=catswhocode_backend \
 		--entrypoint=/bin/sh \
 		minio/mc -c '\
 			mc config host add s3 http://s3:9000 JZ2ACMY43EXTMVWVOYZD 7Xn9y+YKQdJ2azRR2QmKDqa9ksa4zfwGcyjq/saS && \

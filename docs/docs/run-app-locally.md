@@ -14,16 +14,15 @@ The app is not yet in a healthy state as the MySQL database has not been created
 
 ## Initializing the MySQL database
 
-From the project root, change into the `catswhocode/app` (The Django application directory).
+From the project root, change into the `app` (The Django application directory).
 
 Then setup the MySQL database that Django uses by running the following commands:
 
-    make db-create-dev
-    make migrate   
+    make db-create-dev   
     
 ## Creating the bucket
 
-Still in `catswhocode/app`, run `make bucket-create-dev`.
+Still in `app`, run `make bucket-create-dev`.
 
 ## Health Check
 

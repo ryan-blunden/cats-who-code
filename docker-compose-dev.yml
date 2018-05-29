@@ -10,6 +10,7 @@ services:
     networks:
       - frontend
       - backend
+    restart: always
 
   frontend:
     ports:
