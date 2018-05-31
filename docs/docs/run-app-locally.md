@@ -10,7 +10,11 @@ This will build the local Docker images and run the containers using Docker Comp
 
 Once the stack has finished coming up, ensure the app is receiving requests by going to [http://localhost:8080](http://localhost:8080).
 
+You will get a *502 Bad Gateway* error page. This is to be expected.
+
 The app is not yet in a healthy state as the MySQL database has not been created and the S3 bucket running on the Minio server has also not been created. 
+
+Let's fix this and get the app running.
 
 ## Initializing the MySQL database
 
