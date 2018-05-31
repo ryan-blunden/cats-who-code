@@ -5,20 +5,19 @@ SHELL := /bin/bash
 # For running the stack on a single machine, either locally (make stack-dev-start) or remote (make stack).
 #---------------------------------
 
-# TODO: Has to be a better way to remove files across Windows and *nix.
-# See https://stackoverflow.com/questions/4058840/makefile-that-distincts-between-windows-and-unix-like-systems
-
-clean:
-	- @rm -f Pipfile.lock
-	- @rm -f docs/Pipfile.lock
-	- @rm -f app/Pipfile.lock
-
-	- @del Pipfile.lock
-	- @del docs/Pipfile.lock
-	- @del app/Pipfile.lock
-
-build: clean
+build:
 	docker-compose build ${ARGS}
+
+check:
+	docker pull projectatomic/dockerfile-lint:latest
+	docker container run -it --rm --privileged \
+	-v "$(CURDIR)":/root/ \
+	-v "$(CURDIR)/docker":/usr/src/app/docker \
+	projectatomic/dockerfile-lint:latest dockerfile_lint \
+	-f /usr/src/app/docker/api/Dockerfile \
+	-f /usr/src/app/docker/frontend/Dockerfile \
+	-f /usr/src/app/docker/docs/Dockerfile
+
 
 ################
 ## Dev Server ##

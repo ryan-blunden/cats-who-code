@@ -52,7 +52,7 @@ You can (presuming you set the photo to approved) see the photo in the cats feed
 
 Here is a list of services that are available in standalone (dev) mnode:
 
-- ***NGINX Front-End (serves the Django app)**: [http://localhost:8080/](http://localhost:8080/).
+- **NGINX Front-End (serves the Django app)**: [http://localhost:8080/](http://localhost:8080/).
 - **Python (Django) App server**: [http://localhost:8000/](http://localhost:8080/).
 - **MySQL**: 127.0.0.1 on port 3306.
 - **Redis**: 127.0.0.1 on port 6379.
