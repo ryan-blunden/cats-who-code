@@ -1,60 +1,46 @@
 SHELL := /bin/bash
 
-#-----------------------------------------------------------------------------------------------------------------------
+#---------------------------------
 # DOCKER COMPOSE RUN COMMANDS
-# For running the stack on a single machine, either locally (make stack-dev) or remote (make stack).
-#-----------------------------------------------------------------------------------------------------------------------
+# For running the stack on a single machine, either locally (make stack-dev-start) or remote (make stack).
+#---------------------------------
 
-stack-clean:
-	@rm -f Pipfile.lock
-	@rm -f docs/Pipfile.lock
-	@rm -f app/Pipfile.lock
-
-stack-build: stack-clean
+build:
 	docker-compose build ${ARGS}
 
-stack: stack-clean
-	docker-compose up ${ARGS}
+check:
+	docker pull projectatomic/dockerfile-lint:latest
+	docker container run -it --rm --privileged \
+	-v "$(CURDIR)":/root/ \
+	-v "$(CURDIR)/docker":/usr/src/app/docker \
+	projectatomic/dockerfile-lint:latest dockerfile_lint \
+	-f /usr/src/app/docker/api/Dockerfile \
+	-f /usr/src/app/docker/frontend/Dockerfile \
+	-f /usr/src/app/docker/docs/Dockerfile
 
-stack-dev: stack-clean
+
+################
+## Dev Server ##
+################
+#
+# Runs all required services in Docker, plus the docs, mail server and portainer.
+#
+
+app-dev-start:
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml up ${ARGS}
 
-stack-stop:
+app-dev-stop:
+	docker-compose -f docker-compose.yml -f docker-compose-dev.yml stop
+
+#######################
+## Production Server ##
+#######################
+#
+# Only starts the front-end and application server
+#
+
+app-start:
+	docker-compose up ${ARGS}
+
+app-stop:
 	docker-compose stop
-
-#-----------------------------------------------------------------------------------------------------------------------
-# STANDALONE CONTAINER RUN COMMANDS
-# For running containers without Docker Compose for when we deploy the app, MySQL ad Redis to different instances.
-#-----------------------------------------------------------------------------------------------------------------------
-
-awscli: stack-build
-	docker container run --rm -it -v $(CURDIR)/automation:/usr/src/app/automation catswhocode/awscli
-
-# TODO: Command for running front-end and api - NOT YET WORKING
-# NOTE: It's presumed that the host will a env file at cats-who-code/app/app.prod.env
-app-stack:
-	# Networking
-	if docker network ls -f name=catswhocode_frontend return code is not 0
-		docker network create catswhocode_frontend
-	fi
-
-	# API
-	docker container run \
-		--detach \
-		--env-file app/app.prod.env \
-		--init \
-		--volume $(CURDIR)/app/app.prod.env /usr/src/app/app/app.prod.env \
-		--network catswhocode_frontend \
-		--hostname api \
-		--name catswhocode_api \
-		--restart on-failure \
-		catswhocode/api
-
-	# FRONT-END
-	docker container run \
-		--detach \
-		--network catswhocode_frontend \
-		--name catswhocode_frontend \
-		--restart on-failure \
-		--publish list 80:8080 \
-		catswhocode/frontend

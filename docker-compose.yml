@@ -1,53 +1,6 @@
 version: '3.3'
 
 services:
-  awslinux:
-      build:
-        context: docker/awslinux
-      image: catswhocode/awslinux:latest
-      container_name: catswhocode_awslinux
-
-  db:
-    image: mysql:5.7
-    container_name: catswhocode_db
-    ports:
-      - '3306:3306'
-    networks:
-      - backend
-    restart: on-failure
-    environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=True
-
-  cache:
-    image: redis:4-alpine
-    container_name: catswhocode_cache
-    ports:
-      - '6379:6379'
-    networks:
-      - backend
-    restart: on-failure
-
-  dynamo:
-    build:
-      context: docker/dynamo
-    image: catswhocode/dynamo:latest
-    container_name: catswhocode_dynamo
-    ports:
-      - '8000:8000'
-    networks:
-      - backend
-    restart: on-failure
-
-  mail:
-    build:
-      context: docker/mail-server
-    image: catswhocode/mail-server:latest
-    container_name: catrswhocode_mail_server
-    ports:
-      - '1025'
-    networks:
-      - backend
-    restart: on-failure
 
   api:
     build:
@@ -57,16 +10,10 @@ services:
     container_name: catswhocode_api
     ports:
       - '8000'
-    depends_on:
-      - db
-      - cache
-      - mail
     networks:
       - frontend
-      - backend
-    restart: on-failure
     env_file:
-      - app/app.prod.env
+      - app/app.env
 
   frontend:
     build:
@@ -80,48 +27,6 @@ services:
       - api
     networks:
       - frontend
-    restart: on-failure
-
-  thumbnails:
-    build:
-      context: docker/thumbnails
-    image: catswhocode/thumbnails:latest
-    container_name: catswhocode_thumbnails
-    depends_on:
-      - awslinux
-
-  docs:
-    build:
-      dockerfile: docker/docs/Dockerfile
-      context: ./
-    image: catswhocode/docs:latest
-    container_name: catswhocode_docs
-    ports:
-      - '3000:8000'
-    restart: on-failure
-
-  awscli:
-    build:
-      context: docker/awscli/
-    image: catswhocode/awscli:latest
-    container_name: catswhocode_awscli
-    stdin_open: true
-    tty: true
-    networks:
-      - frontend
-      - backend
-    depends_on:
-      - awslinux
-
-  portainer:
-    image: portainer/portainer:latest
-    container_name: catswhocode_portainer
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - '9000:9000'
-    restart: on-failure
 
 networks:
   frontend:
-  backend:

@@ -1,4 +1,8 @@
-# Local Dev Setup
+# For Django Developers working on Cats Who Code
+
+!!! note "Note!"
+
+    This is a guide for developers that want to work on the Cats Who Code application. These instructions are not required to simply run the app.
 
 Install the following:
 
@@ -17,7 +21,7 @@ If you don't plan on doing any Python/Django development, you're done!
     plan on further developing the Cats Who Code application and want to create a Virtual Environment that your Python 
     IDE can use to enable code completion.
 
-The `catswhocode` directory contains the Python (Django) application code. Change into that directory, then follow the 
+The `app` directory contains the Python (Django) application code. Change into that directory, then follow the 
 below instructions.
 
 We use [pipenv](https://docs.pipenv.org/) as it's the best way of handling Python package dependencies.

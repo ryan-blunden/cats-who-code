@@ -7,12 +7,11 @@
 #  - Django admin user is not created as part of this.
 #  - No special behaviour to be added for the initial run. That is outside this scripts responsibilities.
 #  - Set `DJANGO_DEBUG` to trigger installation of Python dev dependencies.
+#    - Installation of dev dependencies only occurs if Pipfile.lock is not present.
 #  - Set `DJANGO_MANAGEPY_MIGRATE` to trigger migrations.
 #  - Set `DJANGO_MANAGEPY_COLLECTSTATIC` to trigger the collection of static files.
 #
 #--------------------------------------------
-
-# TODO: Move this into the wsgi.py file so application code isn't maintained in multiple places.
 
 set -e
 
@@ -41,8 +40,8 @@ fi
 # Wait for MySQL and Redis to be accepting connections
 #-----------------------------------------------------------
 
-./bin/wait-for-it.sh db:3306 -- echo '[info]: MySQL is up.'
-./bin/wait-for-it.sh cache:6379 -- echo '[info]: Redis is up.'
+./bin/wait-for-it.sh ${DB_HOST}:${DB_PORT} -- echo "[info]: MySQL is up at ${DB_HOST} on ${DB_PORT}."
+./bin/wait-for-it.sh ${CACHE_HOST}:${CACHE_PORT} -- echo "[info]: Redis is up at ${CACHE_HOST} on ${CACHE_PORT}."
 
 
 #-------------------------------------------------------------------------------
@@ -50,8 +49,10 @@ fi
 #-------------------------------------------------------------------------------
 
 if [ -v DJANGO_DEBUG ]; then
-    echo '[info]: Installing development packages as DJANGO_DEBUG is set.'
-    pipenv install --dev --deploy --system
+    if [ ! -f Pipfile.lock ]; then
+        echo '[info]: Installing development packages as DJANGO_DEBUG is set.'
+        pip install -r requirements-development.txt
+    fi
 fi
 
 if [ -v DJANGO_MANAGEPY_MIGRATE ]; then

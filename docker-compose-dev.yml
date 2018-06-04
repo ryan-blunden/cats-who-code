@@ -1,25 +1,91 @@
 version: '3.3'
 
 services:
+
   api:
-    command: './manage.py runserver 0.0.0.0:8000'
+    ports:
+      - '8000:8000'
     volumes:
       - ./app:/usr/src/app
-    env_file:
-      - app/app.dev.env
+    networks:
+      - frontend
+      - backend
+    restart: always
 
   frontend:
     ports:
       - '8080:8080'
 
+  db:
+    image: mysql:5.7
+    container_name: catswhocode_db
+    ports:
+      - '3306:3306'
+    networks:
+      - backend
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=True
+
+  cache:
+    image: redis:4-alpine
+    container_name: catswhocode_cache
+    ports:
+      - '6379:6379'
+    networks:
+      - backend
+
+  redis-gui:
+    image: rediscommander/redis-commander:latest
+    container_name: catswhocode_redis_gui
+    environment:
+      - REDIS_HOSTS=cache
+    ports:
+      - '8081:8081'
+    networks:
+      - backend
+    depends_on:
+      - cache
+
+  mail:
+    image: djfarrelly/maildev:latest
+    container_name: catswhocode_mail
+    ports:
+      - '8082:80'
+    networks:
+      - backend
+
+  s3:
+    image: minio/minio:latest
+    container_name: catswhocode_s3
+    command: ['server', '/data']
+    ports:
+      - '9000:9000'
+    environment:
+      - MINIO_ACCESS_KEY=JZ2ACMY43EXTMVWVOYZD
+      - MINIO_SECRET_KEY=7Xn9y+YKQdJ2azRR2QmKDqa9ksa4zfwGcyjq/saS
+    networks:
+      - backend
+
   docs:
+    build:
+      dockerfile: docker/docs/Dockerfile
+      context: ./
+    image: catswhocode/docs:latest
+    container_name: catswhocode_docs
     volumes:
       - ./docs:/usr/src/app
+    ports:
+      - '3000:8000'
 
-  awslinux:
+  portainer:
+    image: portainer/portainer:latest
+    container_name: catswhocode_portainer
+    command: '--no-auth'
     volumes:
-      - .:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - '9001:9000'
 
-  awscli:
-    volumes:
-      - ./docker/awscli:/usr/src/app
+networks:
+  frontend:
+  backend:
