@@ -1,15 +1,26 @@
-FROM python:3.6.5-slim
+ARG PYTHON_TAG=3.6.5-slim
+FROM python:${PYTHON_TAG}
+
+ARG GIT_SHA
+ARG VERSION
+ENV GIT_SHA=${GIT_SHA}
+ENV VERSION=${VERSION}
+
+LABEL MAINTAINER="Ryan Blunden <ryan.blunden@rabbitbird.com>"
+LABEL NAME="Cats Who Code API"
+LABEL VERSION="${VERSION}"
 
 ENV LC_CTYPE=C.UTF-8
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 ENV PYTHONUNBUFFERED 1
 
-HEALTHCHECK CMD curl --fail http://localhost${UWSGI_HTTP}/health-check/ || exit 1
+RUN printf "GIT_SHA=${GIT_SHA}\nVERSION=${VERSION}\n" > build.properties
 
 RUN apt-get update && \
     apt-get upgrade -y  && \
-    apt-get install -y --no-install-recommends curl libmysqlclient-dev gcc jq less groff && \
+    apt-get install -y --no-install-recommends curl default-libmysqlclient-dev gcc jq less groff && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
@@ -32,6 +43,8 @@ ENV UWSGI_WORKERS=2
 ENV UWSGI_THREADS=8
 ENV UWSGI_LAZY_APPS=1
 ENV UWSGI_WSGI_ENV_BEHAVIOR=holy
+
+HEALTHCHECK --interval=5s --timeout=5s --retries=3  CMD curl --fail http://localhost${UWSGI_HTTP}/health-check/ || exit 1
 
 EXPOSE 8000
 

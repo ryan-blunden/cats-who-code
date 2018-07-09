@@ -5,9 +5,12 @@ Pipfile.lock
 .git
 .gitignore
 .env
+app/static
+app/media
 .dockerignore
 LICENSE
 docker
+scripts
 Makefile
 README.md
 sample-images

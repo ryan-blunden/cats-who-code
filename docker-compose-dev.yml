@@ -67,10 +67,7 @@ services:
       - backend
 
   docs:
-    build:
-      dockerfile: docker/docs/Dockerfile
-      context: ./
-    image: catswhocode/docs:latest
+    image: rabbitbird/mkdocs:latest
     container_name: catswhocode_docs
     volumes:
       - ./docs:/usr/src/app
