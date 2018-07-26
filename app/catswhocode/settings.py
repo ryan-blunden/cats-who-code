@@ -137,7 +137,7 @@ if DEBUG:
 
     AWS_S3_SECURE_URLS = False
     AWS_S3_ENDPOINT_URL = 'http://s3:9000'
-    AWS_S3_CUSTOM_DOMAIN = 'localhost:9000/cats-who-code'
+    AWS_S3_CUSTOM_DOMAIN = os.environ.get('AWS_S3_CUSTOM_DOMAIN', 'localhost:9000/cats-who-code')
     AWS_S3_URL_PROTOCOL = 'http:'
     AWS_ACCESS_KEY_ID = 'JZ2ACMY43EXTMVWVOYZD'
     AWS_SECRET_ACCESS_KEY = '7Xn9y+YKQdJ2azRR2QmKDqa9ksa4zfwGcyjq/saS'
