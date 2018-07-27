@@ -8,13 +8,13 @@ docker-images-build:
 	docker image pull nginx:1-alpine 
 	docker image pull python:3.6.5-slim
 
-	cd /tmp && \
-	rm -fr learn-docker && \
-    git clone https://github.com/ryan-blunden/learn-docker && \
-    cd learn-docker/mkdocs && \
-	"$(MAKE)" docker-build && \
-    cd /tmp && \
-    rm -fr learn-docker
+	git clone https://github.com/ryan-blunden/learn-docker
+	cd learn-docker && "$(MAKE)" build
+	#
+	# [info] The following will generate errors you can safely ignore
+	#
+	-@rm -fr learn-docker
+	-@rmdir learn-docker /s /q
 
 build: docker-images-build
 	docker-compose build ${ARGS}
