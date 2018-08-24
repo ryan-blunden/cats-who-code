@@ -1,4 +1,4 @@
-ARG PYTHON_TAG=3.6.5-slim
+ARG PYTHON_TAG=3.7-slim
 FROM python:${PYTHON_TAG}
 
 ARG GIT_SHA
